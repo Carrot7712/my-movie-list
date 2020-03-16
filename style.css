@@ -1,0 +1,18 @@
+/* nav bar字體 */
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
+.navbar{
+  font-family: 'PT Serif', serif;
+}
+/* modeIcon們的大小和效果 */
+  #barIcon,#cardIcon {
+    font-size: 25px;
+    padding-left: 10px;
+    cursor: pointer;
+  }
+  #barIcon:hover,#cardIcon:hover {
+    color:#007BFF
+  }
+/* search-bar對齊下方卡片們 */
+#search-bar{
+    padding: 0 16px ;
+}
