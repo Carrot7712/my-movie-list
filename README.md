@@ -1,16 +1,20 @@
-# Movie List
-A simple web application for movie fanatic
+:movie_camera:MY Movie List 
+===
+A fabulous page to explore and collect your favorite moives with awesome pagination!
+<div align=center><img width="600" height="375" src="https://i.imgur.com/vUDp9pO.png"></div>
 
-## Features
-- listing movies from movie api
-- searching movies by title
-- add movies to your favorite list
-- manage your favorite list
+## Developor
+>  Serena Tseng :muscle:
+>> * A go-getter rookie web developer in Alpha Camp Semester 2.
 
-### Searching
-type the title of the movies in search bar
+## Skills & Tools
+Javascript | CSS3 | HTML | Bootstrap
 
-### Favorite List
-In index page, press the `+` button on the movie to keep it into favorite list.
-You can checkout the favorite list in `favorite.html`
-press `x` to remove it from favorite list
+## First time to my website ?
+
+1. :mag: Insert the movie title in the searching bar.
+2. :raising_hand: Check the details fo each movie by clicking `More` button.
+3. :inbox_tray: Add to your favorite list by pressing the `+` button.
+4. :no_good: Feeling regret? Press `x` to remove it from favorite list.
+
+##### tags: `movielist` `searchingbar` `addtofavorite` `pagination` `bootstrap` `alphacamp` `awesome` 
