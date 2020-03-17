@@ -2,6 +2,7 @@
 ===
 A fabulous page to explore and collect your favorite moives with awesome pagination!
 <div align=center><img width="600" height="375" src="https://i.imgur.com/vUDp9pO.png"></div>
+<div align=center>[Click here to enjoy it right now](https://carrot7712.github.io/my-movie-list/)</div>
 
 ## Developor
 >  Serena Tseng :muscle:
