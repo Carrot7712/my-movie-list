@@ -16,7 +16,6 @@ displayMode
 -修改函數:
 displayDataList改名為displayData，並加入display mode判斷條件
 ***********************************************************/
-
 ;(function() {
   //取資料
   const BASE_URL = "https://movie-list.alphacamp.io/"
@@ -33,8 +32,6 @@ displayDataList改名為displayData，並加入display mode判斷條件
   const searchInput = document.getElementById("search-input")
   const pagination = document.getElementById("pagination")
   const modeIcon = document.getElementById("modeIcon")
-  // const barIcon=document.getElementById('barIcon')
-  // const cardIcon=document.getElementById('cardIcon')
 
   //分頁準備
   const ITEM_PER_PAGE = 12
@@ -48,7 +45,6 @@ displayDataList改名為displayData，並加入display mode判斷條件
     .get(INDEX_URL)
     .then(response => {
       data.push(...response.data.results) //從API拿到資料後塞進data陣列
-      // console.log(data)
       getTotalPages(data) //顯示總頁數
       getPageData(1, data) //顯示該頁電影資料
     })
@@ -59,7 +55,6 @@ displayDataList改名為displayData，並加入display mode判斷條件
   dataPanel.addEventListener("click", event => {
     //按到more按鈕才顯示該電影詳情
     if (event.target.matches(".btn-show-movie")) {
-      // console.log(event.target.dataset.id)
       showMovieDetail(event.target.dataset.id)
       //如果按到+鈕才加到最愛清單
     } else if (event.target.matches(".btn-add-favorite")) {
@@ -70,22 +65,20 @@ displayDataList改名為displayData，並加入display mode判斷條件
   //listen to search form submit event
   searchForm.addEventListener("submit", event => {
     event.preventDefault()
-    // let input = searchInput.value.toLowerCase()
+    // let input = searchInput.value.toLowerCase() //取出input值並轉為小寫
     // let results = data.filter(movie =>
-    //   movie.title.toLowerCase().includes(input)
-    // )
+    //   movie.title.toLowerCase().includes(input) //把資料值都轉成小寫並比對是否有和input符合的字串，true的回傳
+    //另解：用正規表達式                          
     let results = []
     const regex =new RegExp(searchInput.value,'i')
     results=data.filter(movie => movie.title.match(regex))
-    // console.log(results)
-
+    // console.log(results.length)
     getTotalPages(results)
     getPageData(1, results)
   })
 
   //listen to pagination click event
   pagination.addEventListener("click", event => {
-    // console.log(event.target.dataset.page)
     if (event.target.tagName === "A") {
       getPageData(event.target.dataset.page)
     }
@@ -93,7 +86,6 @@ displayDataList改名為displayData，並加入display mode判斷條件
 
   //listen to change mode event
   modeIcon.addEventListener("click", event => {
-    // console.log(event.target)
     if (event.target.matches(".fa-bars")) {
       console.log('list')
       displayMode = "list"
@@ -109,7 +101,12 @@ displayDataList改名為displayData，並加入display mode判斷條件
   function getTotalPages(data) {
     let totalPages = Math.ceil(data.length / ITEM_PER_PAGE)
     let pageItemContent = ""
-    for (let i = 0; i < totalPages; i++) {
+    if(totalPages===0){
+      pagination.innerHTML = `<li class="page-item">
+          <a class="page-link" href="javascript:;">1</a>
+        </li>`
+    }else if (totalPages>0){
+      for (let i = 0; i < totalPages; i++) {
       pageItemContent += `
       <li class="page-item">
         <a class="page-link" href="javascript:;" data-page="${i + 1}">${i +
@@ -117,6 +114,7 @@ displayDataList改名為displayData，並加入display mode判斷條件
       </li>
       `
       pagination.innerHTML = pageItemContent
+      }
     }
   }
 
@@ -141,7 +139,7 @@ displayDataList改名為displayData，並加入display mode判斷條件
       <div class="col-sm-3">
       <div class="card mb-2">
         <img class="card-img-top " src="${POSTER_URL}${item.image}" alt="Card image cap">
-        <div class="card-body movie-item-body">
+        <div class="card-body movie-item-body text-center">
           <h6 class="card-title">${item.title}</h5>
         </div>
 
@@ -188,13 +186,13 @@ displayDataList改名為displayData，並加入display mode判斷條件
     const modalDescription = document.getElementById("show-movie-description")
     //set request url
     const url = INDEX_URL + id
-    // console.log(url)
-    //send request to show api
+    console.log(url)
+    //send request to show API
     axios
       .get(url)
       .then(response => {
         const data = response.data.results
-        //insert data into modal ui
+        //insert data into modal UI
         modalTitle.textContent = data.title
         modalImage.innerHTML = `<img src="${POSTER_URL}${data.image}" class="img-fluid" alt="Responsive image">`
         modalData.textContent = `release at :${data.release_date}`
@@ -207,8 +205,6 @@ displayDataList改名為displayData，並加入display mode判斷條件
   function addFavoriteItem(id) {
     const list = JSON.parse(localStorage.getItem("favoriteMovies")) || []
     const movie = data.find(item => item.id === Number(id))
-    // console.log(movie)
-    // console.log(list)
     if (list.some(item => item.id === Number(id))) {
       alert(`${movie.title} is already in your favorite list`)
     } else {
@@ -216,7 +212,6 @@ displayDataList改名為displayData，並加入display mode判斷條件
       alert(`Added ${movie.title} to your favorite list`)
     }
     localStorage.setItem("favoriteMovies", JSON.stringify(list))
-    // console.log(movie)
-    // console.log(list)
+
   }
 })()
